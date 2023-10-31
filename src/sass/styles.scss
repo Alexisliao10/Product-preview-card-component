@@ -1,4 +1,9 @@
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@use "sass:math";
+
+@function rem($size) {
+  $remSize: math.div($size, 16px);
+  @return #{$remSize}rem;
+}
 
 $primary-dark-cyan: hsl(158, 36%, 37%);
 $primary-cream: hsl(30, 38%, 92%);
@@ -10,10 +15,31 @@ $secondary-white: hsl(0, 0%, 100%);
 $primary-font: "Montserrat", sans-serif;
 $secondary-font: "Fraunces", serif;
 
-$fontSize-paragraph: 14px;
-
 // - Mobile: 375px
 // - Desktop: 1440px
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+p {
+  font-size: rem(14px);
+}
+
+body {
+  position: relative;
+  font-family: $primary-font;
+  background-color: $primary-cream;
+}
 
 .main {
   display: flex;
@@ -27,20 +53,126 @@ $fontSize-paragraph: 14px;
   justify-content: center;
   margin-top: 20px;
   max-width: 340px;
+  background-color: $secondary-white;
+  border-radius: 10px;
 
   &__image {
+    border-radius: 10px 10px 0 0;
     width: 100%;
-    border-radius: 10px;
+  }
+
+  &__header {
+    margin-top: 15px;
+    padding: 0 24px;
+  }
+
+  &__category {
+    font-size: rem(12px);
+    color: $secondary-dark-grayish-blue;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+  }
+
+  &__title {
+    margin-top: 5px;
+    font-family: $secondary-font;
+  }
+
+  &__body {
+    @extend .card__header;
+    line-height: 1.8;
+    color: $secondary-dark-grayish-blue;
+  }
+
+  &__footer {
+    @extend .card__header;
+    margin-bottom: 20px;
+  }
+
+  &__prices {
+    display: flex;
+    align-items: center;
+  }
+
+  &__current-price {
+    font-family: $secondary-font;
+    font-size: rem(28px);
+    color: $primary-dark-cyan;
+  }
+
+  &__previous-price {
+    margin-left: 20px;
+    color: $secondary-dark-grayish-blue;
+    text-decoration: line-through;
+  }
+
+  &__actions {
+    margin-top: 15px;
   }
 }
 
-.attribution {
-  font-size: 11px;
-  text-align: center;
-  a {
-    color: hsl(228, 45%, 44%);
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  background-color: $primary-dark-cyan;
+  font-size: rem(15px);
+  color: $secondary-white;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: $secondary-very-dark-blue;
   }
 }
 
-@media screen and (min-width: 375px) {
+.footer {
+  margin-top: 100px;
+  .attribution {
+    font-size: rem(11px);
+    text-align: center;
+    a {
+      text-decoration: none;
+      color: hsl(228, 45%, 44%);
+    }
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .card {
+    flex-direction: row;
+    margin: 20vh auto;
+    max-width: 580px;
+
+    &__aside {
+      width: 50%;
+      height: 100%;
+    }
+    &__image {
+      content: url(../../src/images/image-product-desktop.jpg);
+      object-fit: cover;
+      height: 100%;
+      border-radius: 10px 0 0 10px;
+    }
+
+    &__main {
+      width: 50%;
+      height: 100%;
+      padding: 10px;
+    }
+
+    &__title,
+    &__body,
+    &__footer,
+    &__actions {
+      margin-top: 22px;
+    }
+  }
 }
