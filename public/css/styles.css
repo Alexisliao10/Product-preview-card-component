@@ -122,7 +122,7 @@ button:active {
     height: 100%;
   }
   .card__image {
-    content: url(../../src/images/image-product-desktop.jpg);
+    content: url(../../images/image-product-desktop.jpg);
     object-fit: cover;
     height: 100%;
     border-radius: 10px 0 0 10px;
